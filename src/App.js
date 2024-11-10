@@ -1,21 +1,18 @@
+// App.js
 import React from 'react';
-// import Hello from './Components/Hello';
-
-import Header from './Components/Header';
-import Car from './Components/Car'; 
-import Login from './Components/Login';
-
+import { Outlet } from 'react-router-dom';  
+import AppHeader from './Components/Header';
+import AppFooter from './Components/Footer';
 
 function App() {
   return (
-    <div>
-      {/* <Hello />
-      <HelloPerson name="Vĩ Khang" />
-      <Header />
-      <Car />
-      <Login /> */}
-      <h1>Welcome to the App!</h1>
-    </div>
+    <>
+      <div className="header"><AppHeader /></div>
+      <div className="outlet">
+        <Outlet />
+      </div>
+      <AppFooter />
+    </>
   );
 }
 

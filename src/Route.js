@@ -1,23 +1,52 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// /Route.js
+import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import Login from './Components/Login';
-import Hello from './Components/Hello';
-import { HelloPerson } from './Components/Hello';
 import Car from './Components/Car';
+import Hello from './Components/Hello';
+import CategoryList from './Components/CategoryList';
+import ProductList from './Components/ProductList';
+import ProductDetail from './Components/ProductDetail';
+import ProductListByCategory from './Components/ProductListByCategory';
+import PrivateRoute from './Components/PrivateRoute';
 
-function RouteComponent() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/hello" element={<Hello />} />
-        <Route path="/car" element={<Car />} />
-        <Route path="*" element={<div>Không tìm thấy trang web theo yêu cầu</div>} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default RouteComponent;
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/car",
+        element: <PrivateRoute element={<Car />} />
+      },
+      {
+        path: "/hello",
+        element: <PrivateRoute element={<Hello />} />
+      },
+      {
+        path: "/category",
+        element: <PrivateRoute element={<CategoryList />} />
+      },
+      {
+        path: "/product",
+        element: <PrivateRoute element={<ProductList />} />
+      },
+      {
+        path: "/product/:id",
+        element: <PrivateRoute element={<ProductDetail />} />
+      },
+      {
+        path: "/category/:id",
+        element: <PrivateRoute element={<ProductListByCategory />} />
+      },
+    ]
+  },
+  {
+    path: "*",
+    element: <div>Không tìm thấy web theo yêu cầu</div>
+  }
+]);
